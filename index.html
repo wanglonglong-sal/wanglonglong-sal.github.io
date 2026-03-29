@@ -1,26 +1,511 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sal Wang | Robotics Portfolio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #1f2933;
+      display: flex;
+    }
+
+    /* 左侧导航 */
+    .sidebar {
+      width: 260px;
+      height: 100vh;
+      background: #1f2d3d;
+      color: white;
+      padding: 28px 22px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      overflow-y: auto;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sidebar h2 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .sidebar .subtitle {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #c7d2da;
+      margin-bottom: 28px;
+    }
+
+    .nav-group {
+      margin-bottom: 28px;
+    }
+
+    .nav-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #8fa3b5;
+      margin-bottom: 10px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #eef4f8;
+      text-decoration: none;
+      margin: 8px 0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+      font-size: 15px;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.08);
+      color: #4fd1c5;
+    }
+
+    /* 右侧内容 */
+    .content {
+      margin-left: 260px;
+      width: calc(100% - 260px);
+      padding: 42px 48px;
+    }
+
+    section {
+      margin-bottom: 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #eef3f8 100%);
+      border: 1px solid #d8e1e8;
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 8px 24px rgba(31, 45, 61, 0.06);
+    }
+
+    .hero .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #0f766e;
+      background: #dff7f4;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px 0;
+      font-size: 40px;
+      line-height: 1.15;
+      color: #102a43;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #486581;
+      max-width: 760px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      margin: 0 0 10px 0;
+      color: #102a43;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #52606d;
+      max-width: 860px;
+      margin-bottom: 22px;
+    }
+
+    .highlight-card {
+      background: #ffffff;
+      border: 1px solid #d9e2ec;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      margin-top: 18px;
+    }
+
+    .highlight-card h3 {
+      margin: 0 0 12px 0;
+      font-size: 24px;
+      color: #102a43;
+    }
+
+    .highlight-card p {
+      margin: 0 0 16px 0;
+      color: #52606d;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 18px 0;
+    }
+
+    .tag-chip {
+      background: #eef2f7;
+      color: #334e68;
+      font-size: 13px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid #d9e2ec;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #1f2d3d;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #16202c;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #1f2d3d;
+      border: 1px solid #cbd5df;
+    }
+
+    .btn-secondary:hover {
+      background: #f8fafc;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #d9e2ec;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .card h4 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      color: #102a43;
+    }
+
+    .card p {
+      margin: 0 0 12px 0;
+      color: #52606d;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .card small {
+      display: block;
+      color: #7b8794;
+      line-height: 1.6;
+      font-size: 12px;
+    }
+
+    .group-block {
+      margin-top: 22px;
+    }
+
+    .group-block h3 {
+      margin: 0 0 12px 0;
+      font-size: 22px;
+      color: #243b53;
+    }
+
+    .footer-note {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #7b8794;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      body {
+        display: block;
+      }
+
+      .content {
+        margin-left: 0;
+        width: 100%;
+        padding: 24px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <h1>Hi, I'm Sal 👋</h1>
-  <p>Robotics MSc | Mobile Manipulator Research</p>
+  <!-- 左侧导航 -->
+  <aside class="sidebar">
+    <h2>Sal Wang</h2>
+    <div class="subtitle">
+      Robotics MSc<br>
+      Mobile Manipulator Research<br>
+      Autonomous Systems | Vision | Control
+    </div>
 
-  <h2>Core Project</h2>
-  <p>
-    Rover–Manipulator Reachability and Stability Analysis
-    <br>
-    <a href="https://github.com/你的项目repo">View on GitHub</a>
-  </p>
+    <div class="nav-group">
+      <div class="nav-title">Overview</div>
+      <a href="#home">Home</a>
+      <a href="#core-project">Core Project</a>
+    </div>
 
-  <h2>Other Projects</h2>
-  <ul>
-    <li>CNN from Scratch</li>
-    <li>ROS2 Simulation</li>
-    <li>Data Analysis Tool</li>
-  </ul>
+    <div class="nav-group">
+      <div class="nav-title">Portfolio Areas</div>
+      <a href="#autonomy">Autonomous Navigation and Estimation</a>
+      <a href="#vision">Perception and Vision</a>
+      <a href="#control">Robot Modelling and Control</a>
+      <a href="#learning">Learning and Data-driven Analysis</a>
+      <a href="#hri">HRI and Human Factors</a>
+    </div>
+  </aside>
+
+  <!-- 右侧内容 -->
+  <main class="content">
+
+    <section id="home">
+      <div class="hero">
+        <div class="tag">Robotics Portfolio</div>
+        <h1>Building autonomous robotic systems from perception to system-level evaluation.</h1>
+        <p>
+          My work focuses on autonomous robotics, machine vision, robot modelling, and system-level analysis.
+          This portfolio brings together research and coursework projects covering estimation, planning, control,
+          vision-based measurement, and mobile manipulator evaluation.
+        </p>
+      </div>
+    </section>
+
+    <section id="core-project">
+      <h2 class="section-title">Core Project</h2>
+      <p class="section-desc">
+        My main research project investigates reachability–stability trade-offs in rover–manipulator systems
+        for planetary robotic applications. It combines system modelling, workspace analysis, and stability evaluation
+        under representative terrain conditions.
+      </p>
+
+      <div class="highlight-card">
+        <h3>Rover–Manipulator Reachability & Stability Analysis</h3>
+        <p>
+          A quasi-static evaluation framework for analysing how rover mobility architecture, manipulator placement,
+          and terrain conditions influence reachable workspace and static stability in planetary robotic systems.
+        </p>
+
+        <div class="meta-row">
+          <span class="tag-chip">MATLAB</span>
+          <span class="tag-chip">Python</span>
+          <span class="tag-chip">Robotics Kinematics</span>
+          <span class="tag-chip">Static Stability</span>
+          <span class="tag-chip">Workspace Analysis</span>
+        </div>
+
+        <div class="button-row">
+          <a class="btn btn-primary" href="#">View GitHub</a>
+          <a class="btn btn-secondary" href="#">Read Report</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="autonomy">
+      <h2 class="section-title">Autonomous Navigation and Estimation</h2>
+      <p class="section-desc">
+        This section covers a simplified autonomous navigation stack, including state estimation,
+        motion planning, and path tracking. Although the demos were developed as separate tasks,
+        they are organised here as one coherent system area.
+      </p>
+
+      <div class="group-block">
+        <h3>State Estimation</h3>
+        <div class="project-grid">
+          <div class="card">
+            <h4>EKF Landmark Tracking</h4>
+            <p>Implemented nonlinear state estimation using an Extended Kalman Filter with innovation and consistency analysis.</p>
+            <small>Keywords: EKF, landmark update, NIS, uncertainty analysis</small>
+          </div>
+
+          <div class="card">
+            <h4>Particle Filter Demo</h4>
+            <p>Built a particle-filter-based localisation demo to compare probabilistic tracking behaviour under uncertainty.</p>
+            <small>Keywords: particle filter, probabilistic robotics, localisation</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="group-block">
+        <h3>Motion Planning and Tracking</h3>
+        <div class="project-grid">
+          <div class="card">
+            <h4>Dubins Path Planning</h4>
+            <p>Generated curvature-constrained paths between waypoints for nonholonomic vehicle motion.</p>
+            <small>Keywords: Dubins path, path geometry, nonholonomic planning</small>
+          </div>
+
+          <div class="card">
+            <h4>RRT Path Planning</h4>
+            <p>Implemented Rapidly-exploring Random Tree planning with path generation and refinement.</p>
+            <small>Keywords: RRT, sampling-based planning, obstacle avoidance</small>
+          </div>
+
+          <div class="card">
+            <h4>Carrot-Chasing Controller</h4>
+            <p>Designed a path-following controller for smooth trajectory tracking on planned routes.</p>
+            <small>Keywords: path following, carrot chasing, tracking control</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vision">
+      <h2 class="section-title">Perception and Vision</h2>
+      <p class="section-desc">
+        My vision-related work covers both low-level image processing implementation in C++ and a higher-level
+        machine vision measurement system for object metrology.
+      </p>
+
+      <div class="project-grid">
+        <div class="card">
+          <h4>C++ Spatial Filtering</h4>
+          <p>Implemented smoothing, sharpening, and edge detection from scratch using convolution-based image filtering.</p>
+          <small>Keywords: C++, image filtering, convolution, Sobel, Laplacian</small>
+        </div>
+
+        <div class="card">
+          <h4>Vision-based Measurement System</h4>
+          <p>Developed an automated monocular measurement pipeline using ArUco markers, contour processing, and geometric analysis.</p>
+          <small>Keywords: OpenCV, ArUco, contour detection, machine vision metrology</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="control">
+      <h2 class="section-title">Robot Modelling and Control</h2>
+      <p class="section-desc">
+        This section focuses on robot kinematics, inverse kinematics, singularity analysis, and trajectory control
+        for industrial manipulator platforms.
+      </p>
+
+      <div class="project-grid">
+        <div class="card">
+          <h4>UR3 / UR10e Kinematics</h4>
+          <p>Modelled UR robots using Modified DH parameters and developed FK/IK workflows for pose analysis.</p>
+          <small>Keywords: MDH, forward kinematics, inverse kinematics, UR robots</small>
+        </div>
+
+        <div class="card">
+          <h4>Trajectory Planning and PD Control</h4>
+          <p>Generated joint-space trajectories and evaluated tracking performance, optimisation, and disturbance response.</p>
+          <small>Keywords: trajectory planning, PD control, joint-space control</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="learning">
+      <h2 class="section-title">Learning and Data-driven Analysis</h2>
+      <p class="section-desc">
+        This section presents machine learning work related to robotic execution failure classification
+        and broader data-driven modelling ideas.
+      </p>
+
+      <div class="project-grid">
+        <div class="card">
+          <h4>Robot Failure Classification</h4>
+          <p>Built a supervised learning pipeline for classifying robot execution failures using structured sensor data.</p>
+          <small>Keywords: Python, scikit-learn, PCA, SMOTE, classification</small>
+        </div>
+
+        <div class="card">
+          <h4>Reinforcement Learning Demo</h4>
+          <p>A lightweight grid-world RL demo for sequential decision-making and policy learning.</p>
+          <small>Keywords: reinforcement learning, grid world, policy learning</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="hri">
+      <h2 class="section-title">HRI and Human Factors</h2>
+      <p class="section-desc">
+        These projects focus on human–robot interaction design, teleoperation feedback, workload interpretation,
+        and safety-oriented interaction structures.
+      </p>
+
+      <div class="project-grid">
+        <div class="card">
+          <h4>EV Battery Assembly HRI Design</h4>
+          <p>Designed a human-led, robot-assisted interaction framework for safety-critical EV battery assembly tasks.</p>
+          <small>Keywords: HRI, safety, human-centred design, task allocation</small>
+        </div>
+
+        <div class="card">
+          <h4>Teleoperation Feedback Study</h4>
+          <p>Proposed a refined experimental approach for analysing feedback and gaze behaviour in teleoperation systems.</p>
+          <small>Keywords: teleoperation, gaze behaviour, workload, human factors</small>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      © Sal Wang | Robotics Portfolio
+    </div>
+  </main>
 
 </body>
 </html>
