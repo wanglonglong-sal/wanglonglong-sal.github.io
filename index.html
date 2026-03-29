@@ -21,65 +21,196 @@
 
     /* 左侧导航 */
     .sidebar {
-      width: 260px;
+      width: 300px;
       height: 100vh;
       background: #1f2d3d;
       color: white;
-      padding: 28px 22px;
+      padding: 22px 18px 28px;
       position: fixed;
       left: 0;
       top: 0;
       overflow-y: auto;
       border-right: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset -1px 0 0 rgba(255,255,255,0.04);
+      transition: width 0.35s ease, padding 0.35s ease;
+    }
+
+    .sidebar-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-height: 100%;
+      transition: opacity 0.25s ease;
+    }
+
+    .profile-block {
+      padding: 18px 16px 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 28px rgba(8, 15, 25, 0.18);
+    }
+
+    .profile-kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(79, 209, 197, 0.16);
+      color: #7ee7dc;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
     }
 
     .sidebar h2 {
-      margin: 0 0 8px 0;
-      font-size: 24px;
+      margin: 0 0 10px 0;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
+      line-height: 1.2;
     }
 
     .sidebar .subtitle {
+      display: grid;
+      gap: 8px;
       font-size: 13px;
-      line-height: 1.5;
-      color: #c7d2da;
-      margin-bottom: 28px;
+      line-height: 1.45;
+      color: #d5dde5;
+      margin: 0;
+    }
+
+    .sidebar .subtitle span {
+      display: block;
+      padding-left: 12px;
+      position: relative;
+    }
+
+    .sidebar .subtitle span::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(126, 231, 220, 0.75);
     }
 
     .nav-group {
-      margin-bottom: 28px;
+      padding: 14px 10px 10px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .nav-title {
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.6px;
       color: #8fa3b5;
-      margin-bottom: 10px;
+      margin: 0 8px 10px;
+      font-weight: 700;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 4px;
     }
 
     .sidebar a {
-      display: block;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
       color: #eef4f8;
       text-decoration: none;
-      margin: 8px 0;
-      padding: 10px 12px;
-      border-radius: 8px;
-      transition: background 0.2s ease, color 0.2s ease;
+      margin: 0;
+      padding: 11px 12px;
+      border-radius: 12px;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
       font-size: 15px;
+      line-height: 1.35;
+      position: relative;
     }
 
-    .sidebar a:hover {
+    .sidebar a::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      margin-top: 0.52em;
+      border-radius: 50%;
+      background: rgba(143, 163, 181, 0.55);
+      flex: 0 0 auto;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .sidebar a:hover,
+    .sidebar a:focus-visible {
       background: rgba(255,255,255,0.08);
       color: #4fd1c5;
+      transform: translateX(2px);
+      outline: none;
+    }
+
+    .sidebar a:hover::before,
+    .sidebar a:focus-visible::before {
+      background: #4fd1c5;
+      transform: scale(1.15);
+    }
+
+    body.core-focus .sidebar {
+      width: 96px;
+      padding: 18px 10px 24px;
+    }
+
+    body.core-focus .sidebar-inner {
+      opacity: 0.96;
+    }
+
+    body.core-focus .profile-block,
+    body.core-focus .nav-group {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    body.core-focus .profile-kicker,
+    body.core-focus .subtitle,
+    body.core-focus .nav-title,
+    body.core-focus .sidebar h2 {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    body.core-focus .sidebar a {
+      justify-content: center;
+      padding: 12px 8px;
+      font-size: 0;
+      gap: 0;
+    }
+
+    body.core-focus .sidebar a::before {
+      margin-top: 0;
+      width: 9px;
+      height: 9px;
+      background: rgba(143, 163, 181, 0.9);
     }
 
     /* 右侧内容 */
     .content {
-      margin-left: 260px;
-      width: calc(100% - 260px);
+      margin-left: 300px;
+      width: calc(100% - 300px);
       padding: 42px 48px;
+      transition: margin-left 0.35s ease, width 0.35s ease, padding 0.35s ease;
+    }
+
+    body.core-focus .content {
+      margin-left: 96px;
+      width: calc(100% - 96px);
+      padding-left: 36px;
+      padding-right: 36px;
     }
 
     section {
@@ -87,11 +218,32 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, #ffffff 0%, #eef3f8 100%);
+      background:
+        radial-gradient(circle at top right, rgba(79, 209, 197, 0.12), transparent 34%),
+        linear-gradient(135deg, #ffffff 0%, #eef3f8 100%);
       border: 1px solid #d8e1e8;
-      border-radius: 16px;
-      padding: 36px;
-      box-shadow: 0 8px 24px rgba(31, 45, 61, 0.06);
+      border-radius: 24px;
+      padding: 40px 44px 30px;
+      box-shadow: 0 14px 36px rgba(31, 45, 61, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -120px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16, 42, 67, 0.08) 0%, rgba(16, 42, 67, 0) 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
     }
 
     .hero .tag {
@@ -99,27 +251,73 @@
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1.1px;
       color: #0f766e;
       background: #dff7f4;
-      padding: 6px 10px;
+      padding: 8px 16px;
       border-radius: 999px;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 18px rgba(15, 118, 110, 0.08);
     }
 
     .hero h1 {
-      margin: 0 0 14px 0;
-      font-size: 40px;
-      line-height: 1.15;
+      margin: 0;
+      font-size: clamp(36px, 4.5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -1px;
       color: #102a43;
+      max-width: 900px;
+      text-wrap: balance;
+    }
+
+    .hero-intro {
+      margin: 18px 0 0;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #486581;
     }
 
     .hero p {
-      margin: 0;
-      font-size: 18px;
-      line-height: 1.7;
+      margin: 14px 0 0;
+      font-size: 17px;
+      line-height: 1.75;
       color: #486581;
       max-width: 760px;
+    }
+
+    .hero-meta {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(16, 42, 67, 0.12);
+    }
+
+    .hero-meta-item {
+      padding: 0;
+    }
+
+    .hero-meta-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7b8794;
+    }
+
+    .hero-meta-value {
+      display: block;
+      font-size: 16px;
+      line-height: 1.55;
+      color: #243b53;
+      font-weight: 600;
     }
 
     .section-title {
@@ -136,40 +334,592 @@
       margin-bottom: 22px;
     }
 
-    .highlight-card {
-      background: #ffffff;
+    .core-section {
+      display: grid;
+      gap: 18px;
+    }
+
+    .core-header {
+      display: block;
+      padding: 8px 0 2px;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e9f7f5;
+      color: #0f766e;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .core-story {
+      position: relative;
+      height: 400vh;
+      margin-bottom: 40px;
+    }
+
+    .core-story-stage {
+      position: sticky;
+      top: 24px;
+      height: calc(100vh - 48px);
+      min-height: 700px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #ffffff 0%, #f9fcff 100%);
       border: 1px solid #d9e2ec;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-      margin-top: 18px;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+    }
+
+    .core-progress {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      z-index: 5;
+      display: flex;
+      gap: 10px;
+    }
+
+    .core-progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(82, 96, 109, 0.22);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .core-progress-dot.is-active {
+      background: #0f766e;
+      transform: scale(1.2);
+    }
+
+    .core-step {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.42fr) minmax(340px, 0.58fr);
+      align-items: stretch;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(28px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .core-step.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .core-visual-panel {
+      position: relative;
+      background:
+        radial-gradient(circle at top left, rgba(79, 209, 197, 0.14), transparent 34%),
+        linear-gradient(180deg, #eef5fb 0%, #e6eff8 100%);
+      padding: 18px 0 0 0;
+      overflow: hidden;
+    }
+
+    .core-frame {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 1180px);
+      height: calc(100% - 18px);
+      margin-right: 0;
+      margin-left: -2px;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: none;
+      background: transparent;
+      border: none;
+    }
+
+    .core-frame::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 190px;
+      background: linear-gradient(180deg, rgba(16, 42, 67, 0) 0%, rgba(16, 42, 67, 0.84) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .core-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      background: transparent;
+    }
+
+    .core-frame[data-placeholder="true"]::before {
+      content: "Project figure";
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 2;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(16, 42, 67, 0.08);
+      color: #334e68;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .core-frame[data-placeholder="true"]::after {
+      content: "Replace this src with your own figure later";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(16, 42, 67, 0.08);
+      color: #52606d;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .core-frame-caption {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 18px;
+      z-index: 3;
+      display: grid;
+      gap: 8px;
+    }
+
+    .core-frame-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.88);
+    }
+
+    .core-frame-title {
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.18;
+      color: white;
+      font-weight: 700;
+      max-width: 78%;
+    }
+
+    .core-copy {
+      position: relative;
+      z-index: 3;
+      background:
+        radial-gradient(circle at top right, rgba(79, 209, 197, 0.12), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border-left: 1px solid #e1e8ef;
+      padding: 52px 40px 52px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .core-copy h3 {
+      margin: 0;
+      font-size: clamp(32px, 3.1vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #102a43;
+      max-width: 12ch;
+    }
+
+    .core-copy .project-label {
+      align-self: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .core-copy p {
+      margin: 0 0 16px;
+      max-width: 34ch;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #486581;
+    }
+
+    .core-copy .core-result {
+      margin: 8px 0 20px;
+      max-width: 34ch;
+    }
+
+    .core-copy .core-points {
+      margin: 0 0 28px;
+      max-width: 36ch;
+    }
+
+    .core-copy .meta-row {
+      margin-top: 0;
+      margin-bottom: 22px;
+      max-width: 520px;
+    }
+
+    .core-step-text {
+      grid-template-columns: 1fr;
+    }
+
+    .core-text-panel {
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+      gap: 36px;
+      padding: 56px 60px;
+      background:
+        radial-gradient(circle at top right, rgba(79, 209, 197, 0.12), transparent 24%),
+        linear-gradient(180deg, #ffffff 0%, #f8fbfe 100%);
+    }
+
+    .core-text-main h3 {
+      margin: 0 0 18px;
+      font-size: clamp(34px, 3vw, 50px);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      color: #102a43;
+      max-width: 11ch;
+    }
+
+    .core-text-main p {
+      margin: 0 0 18px;
+      max-width: 44ch;
+      font-size: 18px;
+      line-height: 1.75;
+      color: #486581;
+    }
+
+    .core-text-aside {
+      display: grid;
+      align-content: start;
+      gap: 20px;
+      padding-top: 30px;
+    }
+
+    .core-aside-card {
+      padding: 22px 24px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #f4f8fb 100%);
+      border: 1px solid #d9e2ec;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+    }
+
+    .core-aside-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7b8794;
+    }
+
+    .core-aside-value {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #243b53;
+      font-weight: 600;
+    }
+
+    .highlight-card {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.15fr);
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border: 1px solid #d9e2ec;
+      border-radius: 22px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+      min-height: 540px;
+      position: relative;
+    }
+
+    .core-visual {
+      position: relative;
+      background: linear-gradient(180deg, #f7fbfe 0%, #eef4f8 100%);
+      min-width: 0;
+      overflow: visible;
+      margin-right: -72px;
+      z-index: 1;
+    }
+
+    .core-visual::after {
+      content: "";
+      position: absolute;
+      inset: auto 18px 18px 18px;
+      height: 90px;
+      background: linear-gradient(180deg, rgba(238, 244, 248, 0) 0%, rgba(238, 244, 248, 0.96) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .core-carousel {
+      position: relative;
+      height: 100%;
+      min-height: 540px;
+      overflow: hidden;
+    }
+
+    .core-carousel-track {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      transition: transform 0.35s ease;
+      will-change: transform;
+    }
+
+    .core-slide {
+      flex: 0 0 100%;
+      min-width: 100%;
+      max-width: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 28px 88px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .core-slide-media {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      min-height: 360px;
+      aspect-ratio: 16 / 10;
+      margin-right: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      border: none;
+      background: linear-gradient(135deg, #eaf2f7 0%, #f7fbfd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      z-index: 1;
+    }
+
+    .core-slide-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    .core-slide-media::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 132px;
+      background: linear-gradient(180deg, rgba(16, 42, 67, 0) 0%, rgba(16, 42, 67, 0.8) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .core-slide-media[data-placeholder="true"]::before {
+      content: "Add project image";
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(16, 42, 67, 0.08);
+      color: #334e68;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .core-slide-media[data-placeholder="true"]::after {
+      content: "Replace this src with your own figure later";
+      position: absolute;
+      inset: auto 18px 18px 18px;
+      color: #52606d;
+      font-size: 14px;
+      text-align: center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(16, 42, 67, 0.08);
+    }
+
+    .core-slide-caption {
+      display: grid;
+      gap: 6px;
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 102px;
+      z-index: 2;
+    }
+
+    .core-slide-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.82);
+    }
+
+    .core-slide-title {
+      font-size: 22px;
+      line-height: 1.2;
+      color: white;
+      font-weight: 700;
+      max-width: 82%;
+    }
+
+    .core-carousel-nav {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 26px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .core-carousel-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .core-carousel-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 42, 67, 0.12);
+      background: rgba(255, 255, 255, 0.94);
+      color: #102a43;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .core-carousel-btn:hover {
+      background: white;
+      transform: translateY(-1px);
+      border-color: rgba(16, 42, 67, 0.2);
+    }
+
+    .core-carousel-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .core-carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(82, 96, 109, 0.25);
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .core-carousel-dot.is-active {
+      background: #0f766e;
+      transform: scale(1.15);
+    }
+
+    .core-content {
+      position: relative;
+      padding: 34px 40px 34px;
+      background:
+        radial-gradient(circle at top right, rgba(79, 209, 197, 0.12), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      z-index: 2;
+      border-left: 1px solid #e1e8ef;
+      border-top-right-radius: 22px;
+      border-bottom-right-radius: 22px;
+    }
+
+    .highlight-header {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 14px;
+    }
+
+    .project-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eef6ff;
+      color: #1d4f91;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .project-title-wrap {
+      max-width: 760px;
     }
 
     .highlight-card h3 {
-      margin: 0 0 12px 0;
+      margin: 0;
       font-size: 24px;
+      line-height: 1.2;
       color: #102a43;
     }
 
     .highlight-card p {
+      position: relative;
+      z-index: 1;
       margin: 0 0 16px 0;
       color: #52606d;
-      line-height: 1.7;
+      line-height: 1.68;
+      font-size: 16px;
+      max-width: 760px;
+    }
+
+    .core-result {
+      margin: 4px 0 18px 0;
+      padding-left: 16px;
+      border-left: 3px solid #4fd1c5;
       font-size: 15px;
+      line-height: 1.6;
+      color: #243b53;
+      font-weight: 700;
+      max-width: 620px;
+    }
+
+    .core-points {
+      margin: 0 0 22px;
+      padding-left: 22px;
+      color: #334e68;
+      display: grid;
+      gap: 8px;
+      font-size: 15px;
+      line-height: 1.58;
     }
 
     .meta-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin: 12px 0 18px 0;
+      margin: 18px 0 22px 0;
     }
 
     .tag-chip {
-      background: #eef2f7;
+      background: #eef4f8;
       color: #334e68;
       font-size: 13px;
-      padding: 7px 10px;
+      padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid #d9e2ec;
     }
@@ -274,6 +1024,7 @@
         position: relative;
         width: 100%;
         height: auto;
+        padding: 18px;
       }
 
       body {
@@ -289,6 +1040,145 @@
       .hero h1 {
         font-size: 32px;
       }
+
+      .hero {
+        padding: 32px 24px 24px;
+        border-radius: 18px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .highlight-card {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .core-story {
+        height: auto;
+        margin-bottom: 28px;
+      }
+
+      .core-story-stage {
+        position: relative;
+        top: auto;
+        height: auto;
+        min-height: 0;
+        border-radius: 18px;
+      }
+
+      .core-progress {
+        top: 18px;
+        right: 18px;
+      }
+
+      .core-step,
+      .core-step.is-active {
+        position: relative;
+        inset: auto;
+        grid-template-columns: 1fr;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
+
+      .core-step:not(:first-child) {
+        display: none;
+      }
+
+      .core-visual-panel {
+        padding: 20px 0 0;
+      }
+
+      .core-frame {
+        margin-right: 0;
+        margin-left: 0;
+        width: 100%;
+        height: auto;
+        border-radius: 0;
+      }
+
+      .core-frame-title {
+        max-width: 100%;
+        font-size: 18px;
+      }
+
+      .core-copy {
+        border-left: none;
+        padding: 26px 24px 24px;
+      }
+
+      .core-copy h3 {
+        font-size: 32px;
+      }
+
+      .core-copy p,
+      .core-text-main p {
+        font-size: 17px;
+      }
+
+      .core-text-panel {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px 24px;
+      }
+
+      .core-visual {
+        overflow: hidden;
+        margin-right: 0;
+      }
+
+      .core-carousel,
+      .core-slide {
+        min-height: 0;
+      }
+
+      .core-slide {
+        padding: 20px 20px 82px;
+      }
+
+      .core-slide-media {
+        min-height: 260px;
+        width: 100%;
+        margin-right: 0;
+      }
+
+      .core-slide-caption {
+        left: 20px;
+        right: 20px;
+        bottom: 94px;
+      }
+
+      .core-slide-title {
+        font-size: 18px;
+        max-width: 100%;
+      }
+
+      .core-carousel-nav {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+      }
+
+      .core-content {
+        padding: 26px 24px 24px;
+        border-left: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .profile-block,
+      .nav-group {
+        border-radius: 14px;
+      }
     }
   </style>
 </head>
@@ -297,26 +1187,34 @@
 
   <!-- 左侧导航 -->
   <aside class="sidebar">
-    <h2>Sal Wang</h2>
-    <div class="subtitle">
-      Robotics MSc<br>
-      Mobile Manipulator Research<br>
-      Autonomous Systems | Vision | Control
-    </div>
+    <div class="sidebar-inner">
+      <div class="profile-block">
+        <div class="profile-kicker">Robotics Portfolio</div>
+        <h2>Longlong Wang</h2>
+        <div class="subtitle">
+          <span>Robotics MSc</span>
+          <span>Technical Project Manager</span>
+        </div>
+      </div>
 
-    <div class="nav-group">
-      <div class="nav-title">Overview</div>
-      <a href="#home">Home</a>
-      <a href="#core-project">Core Project</a>
-    </div>
+      <div class="nav-group">
+        <div class="nav-title">Overview</div>
+        <div class="nav-list">
+          <a href="#home">Home</a>
+          <a href="#core-project">Core Project</a>
+        </div>
+      </div>
 
-    <div class="nav-group">
-      <div class="nav-title">Portfolio Areas</div>
-      <a href="#autonomy">Autonomous Navigation and Estimation</a>
-      <a href="#vision">Perception and Vision</a>
-      <a href="#control">Robot Modelling and Control</a>
-      <a href="#learning">Learning and Data-driven Analysis</a>
-      <a href="#hri">HRI and Human Factors</a>
+      <div class="nav-group">
+        <div class="nav-title">Portfolio Areas</div>
+        <div class="nav-list">
+          <a href="#autonomy">Autonomous Navigation and Estimation</a>
+          <a href="#vision">Perception and Vision</a>
+          <a href="#control">Robot Modelling and Control</a>
+          <a href="#learning">Learning and Data-driven Analysis</a>
+          <a href="#hri">HRI and Human Factors</a>
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -325,42 +1223,141 @@
 
     <section id="home">
       <div class="hero">
-        <div class="tag">Robotics Portfolio</div>
-        <h1>Building autonomous robotic systems from perception to system-level evaluation.</h1>
-        <p>
-          My work focuses on autonomous robotics, machine vision, robot modelling, and system-level analysis.
-          This portfolio brings together research and coursework projects covering estimation, planning, control,
-          vision-based measurement, and mobile manipulator evaluation.
-        </p>
+        <div class="hero-content">
+          <div class="tag">Robotics Portfolio</div>
+          <h1>Building autonomous robotic systems through system-level integration and evaluation.</h1>
+          <div class="hero-intro">Systems Thinking / Robotics Delivery / Evaluation</div>
+          <p>
+            Technical project manager moving into robotics, focused on connecting perception, planning, and control into robust, testable systems.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Current Focus</span>
+            <span class="hero-meta-value">Perception pipelines, robotics integration, and system validation</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Background</span>
+            <span class="hero-meta-value">Technical leadership with prior L4 autonomous driving delivery</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="core-project">
-      <h2 class="section-title">Core Project</h2>
-      <p class="section-desc">
-        My main research project investigates reachability–stability trade-offs in rover–manipulator systems
-        for planetary robotic applications. It combines system modelling, workspace analysis, and stability evaluation
-        under representative terrain conditions.
-      </p>
-
-      <div class="highlight-card">
-        <h3>Rover–Manipulator Reachability & Stability Analysis</h3>
-        <p>
-          A quasi-static evaluation framework for analysing how rover mobility architecture, manipulator placement,
-          and terrain conditions influence reachable workspace and static stability in planetary robotic systems.
-        </p>
-
-        <div class="meta-row">
-          <span class="tag-chip">MATLAB</span>
-          <span class="tag-chip">Python</span>
-          <span class="tag-chip">Robotics Kinematics</span>
-          <span class="tag-chip">Static Stability</span>
-          <span class="tag-chip">Workspace Analysis</span>
+    <section id="core-project" class="core-section">
+      <div class="core-header">
+        <div>
+          <div class="section-kicker">Featured Research</div>
+          <h2 class="section-title">Core Project</h2>
         </div>
+      </div>
 
-        <div class="button-row">
-          <a class="btn btn-primary" href="#">View GitHub</a>
-          <a class="btn btn-secondary" href="#">Read Report</a>
+      <div class="core-story" data-core-story>
+        <div class="core-story-stage">
+          <div class="core-progress" aria-hidden="true">
+            <span class="core-progress-dot is-active"></span>
+            <span class="core-progress-dot"></span>
+            <span class="core-progress-dot"></span>
+            <span class="core-progress-dot"></span>
+          </div>
+
+          <article class="core-step is-active" data-core-step>
+            <div class="core-visual-panel">
+              <figure class="core-frame" data-placeholder="true">
+                <img src="assets/core-project/slide-01.jpg" alt="Overview of the rover-manipulator system." />
+                <figcaption class="core-frame-caption">
+                  <span class="core-frame-label">Page 01</span>
+                  <span class="core-frame-title">System overview and workflow entry point</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="core-copy">
+              <div class="project-label">Flagship Project</div>
+              <h3>Python Service Platform</h3>
+              <p>A computational backend that powers large-scale evaluation of rover-manipulator configurations.</p>
+              <p>It generates, evaluates, and organises system configurations to reveal how design parameters influence reachability and stability at a system level.</p>
+              <div class="core-result">Use structured computation to turn design space into measurable system behaviour.</div>
+              <ul class="core-points">
+                <li>Generate and evaluate thousands of configurations consistently.</li>
+                <li>Link reachability with stability through core projection analysis.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="core-step" data-core-step>
+            <div class="core-visual-panel">
+              <figure class="core-frame" data-placeholder="true">
+                <img src="assets/core-project/slide-02.jpg" alt="Reachability and stability analysis figure." />
+                <figcaption class="core-frame-caption">
+                  <span class="core-frame-label">Page 02</span>
+                  <span class="core-frame-title">Reachability and stability comparison view</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="core-copy">
+              <div class="project-label">System Behaviour</div>
+              <h3>Compare how terrain and posture shift the reachable workspace.</h3>
+              <p>This stage is for the key result figure: before and after compensation, pose adjustment, or one central comparison that explains why the system matters.</p>
+              <div class="core-result">Best used for one figure that tells the story without needing long explanation.</div>
+              <ul class="core-points">
+                <li>Keep only the labels the viewer actually needs.</li>
+                <li>Use this page for the figure that supports your main claim.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="core-step" data-core-step>
+            <div class="core-visual-panel">
+              <figure class="core-frame" data-placeholder="true">
+                <img src="assets/core-project/slide-03.jpg" alt="Additional system evaluation output." />
+                <figcaption class="core-frame-caption">
+                  <span class="core-frame-label">Page 03</span>
+                  <span class="core-frame-title">Additional experiment, dataset, or interface output</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="core-copy">
+              <div class="project-label">Evidence Layer</div>
+              <h3>Show the supporting view that proves the framework is practical.</h3>
+              <p>This page works well for your data browser, experiment panel, terrain case study, or any screenshot that shows the system can actually be used, not just modelled.</p>
+              <div class="core-result">A good place for operational screenshots, scenario views, or design-space exploration tools.</div>
+              <ul class="core-points">
+                <li>Use wide screenshots here because the layout gives them more room.</li>
+                <li>Keep captions short and let the image do the work.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="core-step core-step-text" data-core-step>
+            <div class="core-text-panel">
+              <div class="core-text-main">
+                <div class="project-label">Project Summary</div>
+                <h3>System explanation and links.</h3>
+                <p>Rover-Manipulator Reachability & Stability Analysis is designed as a system-level study of how rover mobility, manipulator placement, and terrain jointly affect usable operation space.</p>
+                <p>The framework supports trade-off decisions for robotic systems operating in complex environments, combining configuration analysis with geometry-based stability interpretation.</p>
+                <div class="meta-row">
+                  <span class="tag-chip">MATLAB</span>
+                  <span class="tag-chip">Python</span>
+                  <span class="tag-chip">System Modelling</span>
+                  <span class="tag-chip">Stability Analysis</span>
+                </div>
+                <div class="button-row">
+                  <a class="btn btn-primary" href="#">View System</a>
+                  <a class="btn btn-secondary" href="#">Technical Report</a>
+                </div>
+              </div>
+              <div class="core-text-aside">
+                <div class="core-aside-card">
+                  <span class="core-aside-label">Use This Page For</span>
+                  <div class="core-aside-value">Method summary, design rationale, links to GitHub or report, and a short explanation of what the reader just saw.</div>
+                </div>
+                <div class="core-aside-card">
+                  <span class="core-aside-label">Scroll Behaviour</span>
+                  <div class="core-aside-value">After this page, the next wheel movement naturally exits the project story and continues to the next section.</div>
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -506,6 +1503,67 @@
       © Sal Wang | Robotics Portfolio
     </div>
   </main>
+
+  <script>
+    document.querySelectorAll(".core-frame").forEach((frame) => {
+      const img = frame.querySelector("img");
+
+      if (!img) {
+        return;
+      }
+
+      img.addEventListener("error", () => {
+        frame.setAttribute("data-placeholder", "true");
+        img.style.opacity = "0";
+      });
+
+      img.addEventListener("load", () => {
+        frame.removeAttribute("data-placeholder");
+        img.style.opacity = "1";
+      });
+    });
+
+    const coreStory = document.querySelector("[data-core-story]");
+
+    if (coreStory) {
+      const steps = Array.from(coreStory.querySelectorAll("[data-core-step]"));
+      const dots = Array.from(coreStory.querySelectorAll(".core-progress-dot"));
+      const updateCoreStory = () => {
+        if (window.innerWidth <= 900) {
+          document.body.classList.remove("core-focus");
+          steps.forEach((step, index) => {
+            step.classList.toggle("is-active", index === 0);
+          });
+          dots.forEach((dot, index) => {
+            dot.classList.toggle("is-active", index === 0);
+          });
+          return;
+        }
+
+        const rect = coreStory.getBoundingClientRect();
+        const viewport = window.innerHeight;
+        const maxProgress = Math.max(coreStory.offsetHeight - viewport, 1);
+        const rawProgress = Math.min(Math.max(-rect.top, 0), maxProgress);
+        const ratio = rawProgress / maxProgress;
+        const stepIndex = Math.min(steps.length - 1, Math.floor(ratio * steps.length));
+
+        steps.forEach((step, index) => {
+          step.classList.toggle("is-active", index === stepIndex);
+        });
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("is-active", index === stepIndex);
+        });
+
+        const inFocus = rect.top <= 64 && rect.bottom >= viewport * 0.45;
+        document.body.classList.toggle("core-focus", inFocus);
+      };
+
+      window.addEventListener("scroll", updateCoreStory, { passive: true });
+      window.addEventListener("resize", updateCoreStory);
+      updateCoreStory();
+    }
+  </script>
 
 </body>
 </html>
